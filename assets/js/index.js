@@ -1,22 +1,22 @@
 $(function(){
-getUserinfo();
+    getUserinfo();
 
-var layer = layui.layer;
-$("#bunLogout").on('click',function(){
-    // 提示用户是否退出
-    layer.confirm('确定退出登录?', {icon: 8, title:'提示'}, 
-        function(index){
-            //do something
-            // 清除本地存储
-            localStorage.removeItem('token');
-            // 页面退回到登录页面
-            location.href = '/login.html';
-            // 关闭询问框
-            layer.close(index);
-        });
-})
+    var layer = layui.layer;
+    $("#bunLogout").on('click',function(){
+        // 提示用户是否退出
+        layer.confirm('确定退出登录?', {icon: 8, title:'提示'}, 
+            function(index){
+                //do something
+                // 清除本地存储
+                localStorage.removeItem('token');
+                // 页面退回到登录页面
+                location.href = '/login.html';
+                // 关闭询问框
+                layer.close(index);
+            });
+    })
 
-})
+
 function getUserinfo(){
     $.ajax({
         method:'GET',
@@ -42,8 +42,8 @@ function getUserinfo(){
         // }
 
     })
-
-    //渲染用户信息
+}
+ //渲染用户信息
     function renderAvtar(txt){
         var uname = txt.username;
         //如果有昵称则显示昵称，没有则显示登陆名
@@ -53,9 +53,10 @@ function getUserinfo(){
             if(txt.user_pic === null) {
                 $(".userinfo img").hide();
                 $(".userinfo .text-avatar").html(uname);
-            }else{
+            }else if(txt.user_pic !== null){
                 $(".userinfo img").attr('src',txt.user_pic).show();
-
+                $('.text-avatar').hide();
             }
     }
-}
+
+})
